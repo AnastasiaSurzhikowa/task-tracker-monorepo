@@ -1,0 +1,18 @@
+@startuml
+!theme plain
+
+entity "users" as users {
+  * id : Long <<PK>> <<auto increment>>
+  --
+  first_name : varchar
+  last_name : varchar
+  * email : varchar <<unique>>
+}
+
+note right of users
+  Изолированная БД микросервиса
+  user_service.
+  Связей с другими таблицами нет.
+end note
+
+@enduml
