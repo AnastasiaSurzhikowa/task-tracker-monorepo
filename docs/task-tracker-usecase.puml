@@ -1,0 +1,33 @@
+@startuml
+!theme plain
+
+title Task Tracker — Use Case Diagram
+
+left to right direction
+
+actor "User" as User
+actor "Admin" as Admin
+
+rectangle "Core" {
+  User --> (Регистрация)
+  User --> (Авторизация)
+  User --> (Создание задачи)
+  User --> (Просмотр списка своих задач)
+  User --> (Делегирование задачи другому пользователю)
+  Admin --> (Просмотр всех задач)
+  Admin --> (Управление пользователями)
+}
+
+rectangle "Future scaling" {
+  (Уведомления о новых задачах) #E6F3FF
+  (Комментарии к задачам) #E6F3FF
+  (История изменений статуса) #E6F3FF
+  (Роли и права доступа) #E6F3FF
+}
+
+User --> (Уведомления о новых задачах)
+User --> (Комментарии к задачам)
+User --> (История изменений статуса)
+Admin --> (Роли и права доступа)
+
+@enduml
