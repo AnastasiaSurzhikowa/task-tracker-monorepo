@@ -29,7 +29,7 @@ verify_task_service:
   stage: verify
   script:
     - cd task_service
-    - mvn clean verify
+    - mvn clean verify -DforkCount=0
   # Пайплайн запустится только если были изменения в папке task_service
   only:
     changes:
