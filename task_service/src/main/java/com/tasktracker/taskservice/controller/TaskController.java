@@ -31,4 +31,12 @@ public class TaskController {
         List<TaskResponse> tasks = taskService.getTasksByUserId(userId);
         return ResponseEntity.ok(tasks);
     }
+
+    @PostMapping("/{taskId}/delegate")
+    public ResponseEntity<TaskResponse> delegate(
+            @PathVariable Long taskId,
+            @RequestParam Long assigneeId) {
+        TaskResponse response = taskService.delegateTask(taskId, assigneeId);
+        return ResponseEntity.ok(response);
+    }
 }
