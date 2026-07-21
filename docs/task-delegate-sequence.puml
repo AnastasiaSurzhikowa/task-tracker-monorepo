@@ -10,29 +10,28 @@ participant "UserService" as U
 C ->> T: POST /tasks/{taskId}/delegate?assigneeId=X
 activate T
 
-alt Пользователь найден (задача валидна)
-  T ->> U: GET /users/{assigneeId}
-  activate U
-  U -->> T: 200 OK
-  deactivate U
-  T ->> T: обновить задачу (assigneeId)
-  T -->> C: 200 OK
-
-else Пользователь не найден
-  T ->> U: GET /users/{assigneeId}
-  activate U
-  U -->> T: 404 Not Found
-  deactivate U
-  T -->> C: 404 Not Found
-
-else Задача не найдена
+alt Задача не найдена
   T -->> C: 404 Not Found
   note right: без обращения к UserService
 
 else Некорректный статус задачи (DONE)
   T -->> C: 400 Bad Request
+  note right: без обращения к UserService
 
-end
+else Задача найдена и валидна
+  T ->> U: GET /users/{assigneeId}
+  activate U
+
+  alt Пользователь не найден
+    U -->> T: 404 Not Found
+    deactivate U
+    T -->> C: 404 Not Found
+  else Пользователь найден
+    U -->> T: 200 OK
+    deactivate U
+    T ->> T: обновить задачу (assigneeId)
+    T -->> C: 200 OK
+  end
 
 deactivate T
 

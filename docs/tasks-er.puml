@@ -4,9 +4,9 @@
 title task_service — таблица tasks (изолированная)
 
 entity "tasks" as tasks {
-  * id : Long <<PK>> <<автоинкремент>>
+  * id : BIGINT <<generated>>
   --
-  title : varchar
+  title : VARCHAR(255)
   status : enum <<TODO | IN_PROGRESS | DONE>>
   creator_id : Long <<логическая ссылка на user (без FK)>>
   assignee_id : Long <<логическая ссылка на user (без FK, может быть null)>>
